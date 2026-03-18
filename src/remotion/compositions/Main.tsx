@@ -42,7 +42,7 @@ export const Main: React.FC = () => {
           style={{ fontFamily, fontWeight: 700, letterSpacing: "0.01em" }}
         >
           <div className="text-4xl md:text-5xl font-bold">
-            <span className="font-extrabold text-sky-300">TypeFrames</span> is
+            <span className="font-extrabold text-sky-300">Motionabl</span> is
             building your video
             <LoaderDots />
           </div>
