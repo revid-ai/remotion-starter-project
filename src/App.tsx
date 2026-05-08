@@ -78,12 +78,12 @@ export const App = () => {
   }, [initialFrame]);
 
   return (
-    <div className="relative flex flex-col items-center justify-center h-screen w-screen p-4 bg-[#1e1e1e]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(255,255,255,0.08),transparent_40%),radial-gradient(circle_at_80%_70%,rgba(59,130,246,0.08),transparent_45%),linear-gradient(180deg,rgba(255,255,255,0.04),transparent_35%)]" />
-      <div className="w-full h-full flex flex-col items-center justify-center relative">
-        <div className="w-full h-full flex items-center justify-center">
-          <div className="relative rounded-2xl border border-white/15 bg-black/30 shadow-[0_20px_80px_rgba(0,0,0,0.55)] ring-1 ring-white/10 backdrop-blur-sm overflow-hidden">
-            <div className="absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
+    <div className="app-preview-shell">
+      <div className="app-preview-backdrop" />
+      <div className="app-preview-stage">
+        <div className="app-preview-center">
+          <div className="app-player-frame">
+            <div className="app-player-highlight" />
             <Player
               ref={playerRef}
               component={composition.component}
@@ -91,9 +91,9 @@ export const App = () => {
               fps={composition.fps}
               compositionHeight={composition.height}
               compositionWidth={composition.width}
-            controls
-            autoPlay={shouldAutoPlay}
-            style={playerSize}
+              controls
+              autoPlay={shouldAutoPlay}
+              style={playerSize}
               allowFullscreen
               doubleClickToFullscreen
               initialFrame={initialFrame ?? 0}
