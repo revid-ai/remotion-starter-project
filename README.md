@@ -1,88 +1,37 @@
-<img src="https://github.com/remotion-dev/template-next/assets/1629785/9092db5f-7c0c-4d38-97c4-5f5a61f5cc098" />
-<br/>
-<br/>
+# Motionabl Remotion Starter
 
-This is a Next.js template for building programmatic video apps, with [`@remotion/player`](https://remotion.dev/player) and [`@remotion/lambda`](https://remotion.dev/lambda) built in.
+Minimal Vite + React + Remotion starter used by generated projects.
 
-This template uses the Next.js App directory and native CSS for styling. A [Pages directory version](https://github.com/remotion-dev/template-next-pages-dir) of this template is also available.
+## What Stays In The Starter
 
-<img src="https://github.com/remotion-dev/template-next/assets/1629785/c9c2e5ca-2637-4ec8-8e40-a8feb5740d88" />
-
-## Getting Started
-
-[Use this template](https://github.com/new?template_name=template-next-app-dir&template_owner=remotion-dev) to clone it into your GitHub account. Run
-
-```
-npm i
-```
-
-afterwards. Alternatively, use this command to scaffold a project:
-
-```
-npx create-video@latest --next
-```
+- `src/App.tsx`: local Remotion Player preview
+- `src/remotion/compositions.ts`: composition metadata
+- `src/remotion/compositions/Main.tsx`: starter composition
+- `src/remotion/launch`: small reusable launch-video motion primitives
+- `src/remotion/index.tsx`: Remotion render entrypoint
+- `src/styles/global.css`: native CSS only
 
 ## Commands
 
-Start the Next.js dev server:
-
-```
+```bash
+npm install
 npm run dev
+npm run build
+npm run lint
 ```
 
-Open the Remotion Studio:
+## Rules
 
-```
-npm run remotion
-```
+- Use native CSS, CSS variables, SVG, and Remotion primitives.
+- Do not add utility CSS frameworks, demo tooling, component-library demos, or generated lab assets to the starter.
+- Keep the starter small; project-specific helpers should be created only when a generated video needs them.
 
-Render a video locally:
+## Launch Primitives
 
-```
-npx remotion render
-```
+Generated projects can import from `src/remotion/launch`:
 
-Upgrade Remotion:
+- `SceneTransition`, `SceneLifecycle`, `CameraDrift`, `SpringLayer`
+- `WordReveal`, `LineReveal`, `SplitHeadlineReveal`
+- `MotionPanel`, `TracePanel`, `MetricCard`, `IsometricCardStack`, `CursorClick`
 
-```
-npx remotion upgrade
-```
-
-The following script will set up your Remotion Bundle and Lambda function on AWS:
-
-```
-node deploy.mjs
-```
-
-You should run this script after:
-
-- changing the video template
-- changing `config.mjs`
-- upgrading Remotion to a newer version
-
-## Set up rendering on AWS Lambda
-
-This template supports rendering the videos via [Remotion Lambda](https://remotion.dev/lambda).
-
-1. Copy the `.env.example` file to `.env` and fill in the values.
-   Complete the [Lambda setup guide](https://www.remotion.dev/docs/lambda/setup) to get your AWS credentials.
-
-1. Edit the `config.mjs` file to your desired Lambda settings.
-
-1. Run `node deploy.mjs` to deploy your Lambda function and Remotion Bundle.
-
-## Docs
-
-Get started with Remotion by reading the [fundamentals page](https://www.remotion.dev/docs/the-fundamentals).
-
-## Help
-
-We provide help on our [Discord server](https://remotion.dev/discord).
-
-## Issues
-
-Found an issue with Remotion? [File an issue here](https://remotion.dev/issue).
-
-## License
-
-Note that for some entities a company license is needed. [Read the terms here](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md).
+These are intentionally generic: use them as movement scaffolding, then customize layout, colors, typography, and content per scene.

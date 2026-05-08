@@ -3,11 +3,11 @@ import { Main } from "./compositions/Main";
 export type SceneMarker = {
   label: string;
   from: number;
-  durationInFrames?: number;
+  durationInFrames: number;
 };
 
 export type CompositionConfig = {
-  id: string;
+  id: "Main";
   component: typeof Main;
   durationInFrames: number;
   fps: number;
@@ -16,7 +16,8 @@ export type CompositionConfig = {
   scenes?: SceneMarker[];
 };
 
-// Single composition configuration
+// Single composition configuration. Add scenes here so the host app can render
+// external player controls and scene navigation around the iframe preview.
 export const composition: CompositionConfig = {
   id: "Main",
   component: Main,
@@ -24,5 +25,4 @@ export const composition: CompositionConfig = {
   fps: 30,
   width: 1920,
   height: 1080,
-  scenes: [],
 };
