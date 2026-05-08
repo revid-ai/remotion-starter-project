@@ -190,10 +190,14 @@ export const App = () => {
   }, [postPlayerState]);
 
   return (
-    <div className="app-shell">
+    <div
+      className="app-shell"
+      data-motionabl-composition-width={composition.width}
+      data-motionabl-composition-height={composition.height}
+    >
       <div className="app-backdrop" />
       <div className="app-stage">
-        <div className="app-player-shell">
+        <div className="app-player-shell" data-motionabl-frame="true">
           <div className="app-player-gloss" />
           <Player
             ref={playerRef}
