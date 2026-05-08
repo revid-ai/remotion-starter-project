@@ -102,76 +102,105 @@ select {
   background: linear-gradient(180deg, rgb(255 255 255 / 0.1), transparent);
 }
 
-.motionabl-loading-scene {
+.preview-pending-scene {
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: #0f1115;
+  color: #f6f1e8;
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.04), transparent 38%),
+    radial-gradient(ellipse at 50% 52%, rgb(255 255 255 / 0.07), transparent 48%),
+    #0b0b0d;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
 }
 
-.loading-orb-backdrop,
-.loading-grid {
+.preview-pending-scene::before {
   position: absolute;
   inset: 0;
   pointer-events: none;
-}
-
-.loading-orb-backdrop {
+  content: "";
   background:
-    radial-gradient(circle at 30% 20%, rgb(99 102 241 / 0.28), transparent 45%),
-    radial-gradient(circle at 70% 60%, rgb(16 185 129 / 0.2), transparent 50%);
+    linear-gradient(90deg, rgb(255 255 255 / 0.03), transparent 34%),
+    linear-gradient(180deg, transparent 58%, rgb(0 0 0 / 0.34));
 }
 
-.loading-grid {
-  opacity: 0.4;
+.preview-pending-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.28;
   background-image:
-    linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px),
-    linear-gradient(180deg, rgb(255 255 255 / 0.05) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(180deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse at center, black 0%, transparent 72%);
 }
 
-.loading-copy {
+.preview-pending-content {
   position: relative;
+  width: min(520px, 72%);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  color: #fff;
-  text-align: center;
-  filter: drop-shadow(0 12px 32px rgb(0 0 0 / 0.55));
+  align-items: flex-start;
   transform: translate3d(0, 0, 0);
   will-change: transform, opacity;
 }
 
-.loading-title {
-  max-width: 920px;
-  font-size: 64px;
-  line-height: 1.02;
-}
-
-.loading-brand,
-.loader-dot {
-  color: #7dd3fc;
-}
-
-.loader-dots {
+.preview-pending-status {
   display: inline-flex;
-  gap: 4px;
-  margin-left: 4px;
+  align-items: center;
+  gap: 10px;
+  color: rgb(246 241 232 / 0.64);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
-.loader-dot {
-  display: inline-block;
+.preview-pending-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #d6a15c;
+  box-shadow: 0 0 24px rgb(214 161 92 / 0.7);
 }
 
-.loading-subtitle {
-  max-width: 720px;
-  color: rgb(255 255 255 / 0.7);
-  font-size: 22px;
+.preview-pending-title {
+  max-width: 520px;
+  margin-top: 20px;
+  font-size: 54px;
+  font-weight: 760;
+  letter-spacing: 0;
+  line-height: 0.98;
+}
+
+.preview-pending-subtitle {
+  max-width: 430px;
+  margin-top: 14px;
+  color: rgb(246 241 232 / 0.58);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0;
   line-height: 1.35;
+}
+
+.preview-pending-progress {
+  width: min(360px, 100%);
+  height: 2px;
+  margin-top: 32px;
+  overflow: hidden;
+  background: rgb(246 241 232 / 0.12);
+}
+
+.preview-pending-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: left center;
+  background: linear-gradient(90deg, #9c7441, #f1d4a8);
 }
 
 @media (max-width: 720px) {
@@ -179,11 +208,15 @@ select {
     padding: 10px;
   }
 
-  .loading-title {
-    font-size: 38px;
+  .preview-pending-content {
+    width: min(420px, 80%);
   }
 
-  .loading-subtitle {
+  .preview-pending-title {
+    font-size: 36px;
+  }
+
+  .preview-pending-subtitle {
     font-size: 16px;
   }
 }

@@ -1,29 +1,35 @@
-import { AbsoluteFill, Artifact, useCurrentFrame, useVideoConfig } from "remotion";
-import { loadFont } from "@remotion/google-fonts/SpaceMono";
-import { CameraDrift, SpringLayer } from "../launch";
+import { AbsoluteFill, Artifact, interpolate, useCurrentFrame } from "remotion";
 
-const LoaderDots = () => {
+const PreviewPending = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-
-  const dot = (index: number) => {
-    const phase = (frame / fps) * 2 * Math.PI + index * 0.8;
-    return 0.35 + Math.max(0, Math.sin(phase)) * 0.65;
-  };
+  const cycle = frame % 90;
+  const progress = interpolate(cycle, [0, 54, 90], [0.08, 0.82, 0.08], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const dotOpacity = interpolate(cycle, [0, 45, 90], [0.35, 1, 0.35], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
   return (
-    <span className="loader-dots">
-      {[0, 1, 2].map((i) => (
-        <span key={i} className="loader-dot" style={{ opacity: dot(i) }}>
-          .
-        </span>
-      ))}
-    </span>
+    <div className="preview-pending-content">
+      <div className="preview-pending-status">
+        <span className="preview-pending-dot" style={{ opacity: dotOpacity }} />
+        <span>Preview</span>
+      </div>
+      <div className="preview-pending-title">Preparing preview</div>
+      <div className="preview-pending-subtitle">
+        Generated scenes will appear here when ready.
+      </div>
+      <div className="preview-pending-progress" aria-hidden="true">
+        <span style={{ transform: `scaleX(${progress})` }} />
+      </div>
+    </div>
   );
 };
 
 export const Main: React.FC = () => {
-  const { fontFamily } = loadFont();
   const frame = useCurrentFrame();
 
   return (
@@ -31,26 +37,9 @@ export const Main: React.FC = () => {
       {frame === 0 && (
         <Artifact content={Artifact.Thumbnail} filename="thumbnail.jpeg" />
       )}
-      <AbsoluteFill className="motionabl-loading-scene">
-        <CameraDrift durationInFrames={350} fromScale={1.04} toScale={1.01}>
-          <div className="loading-orb-backdrop" />
-          <div className="loading-grid" />
-        </CameraDrift>
-        <SpringLayer delay={4} y={22}>
-          <div
-            className="loading-copy"
-            style={{ fontFamily, fontWeight: 700, letterSpacing: "0.01em" }}
-          >
-            <div className="loading-title">
-              <span className="loading-brand">Motionabl</span> is building your
-              video
-              <LoaderDots />
-            </div>
-            <div className="loading-subtitle">
-              Rendering scenes, timing transitions, and polishing frames.
-            </div>
-          </div>
-        </SpringLayer>
+      <AbsoluteFill className="preview-pending-scene">
+        <div className="preview-pending-grid" />
+        <PreviewPending />
       </AbsoluteFill>
     </>
   );

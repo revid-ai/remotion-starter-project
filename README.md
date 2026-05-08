@@ -1,4 +1,4 @@
-# Motionabl Remotion Starter
+# Remotion Starter Project
 
 Minimal Vite + React + Remotion starter used by generated projects.
 
