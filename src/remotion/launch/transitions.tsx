@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import { AbsoluteFill, Easing, useCurrentFrame, useVideoConfig } from "remotion";
 import { gpuTransform, progress, springIn, timeline } from "./helpers";
+import { LAUNCH_TIMING } from "./timing";
 
 export type LaunchTransitionName =
   | "hard-cut"
@@ -19,13 +20,19 @@ function motionTransform(variant: LaunchTransitionName, amount: number, exit = f
 
   const distance = exit ? amount : 1 - amount;
   const sign = exit ? 1 : -1;
+  const { slidePx, scaleInFrom, scaleInExitTo, scaleDownFrom, scaleDownExitTo } =
+    LAUNCH_TIMING.transition;
 
-  if (variant === "scale-in") return `scale(${exit ? 1 + amount * 0.1 : 0.84 + amount * 0.16})`;
-  if (variant === "scale-down") return `scale(${exit ? 1 - amount * 0.08 : 1.12 - amount * 0.12})`;
-  if (variant === "slide-up") return `translate3d(0, ${exit ? -70 * amount : 70 * distance}px, 0)`;
-  if (variant === "slide-down") return `translate3d(0, ${exit ? 70 * amount : -70 * distance}px, 0)`;
-  if (variant === "slide-left") return `translate3d(${exit ? -90 * amount : 90 * distance}px, 0, 0)`;
-  if (variant === "slide-right") return `translate3d(${exit ? 90 * amount : -90 * distance}px, 0, 0)`;
+  if (variant === "scale-in") {
+    return `scale(${exit ? 1 + (scaleInExitTo - 1) * amount : scaleInFrom + (1 - scaleInFrom) * amount})`;
+  }
+  if (variant === "scale-down") {
+    return `scale(${exit ? 1 - (1 - scaleDownExitTo) * amount : scaleDownFrom - (scaleDownFrom - 1) * amount})`;
+  }
+  if (variant === "slide-up") return `translate3d(0, ${exit ? -slidePx * amount : slidePx * distance}px, 0)`;
+  if (variant === "slide-down") return `translate3d(0, ${exit ? slidePx * amount : -slidePx * distance}px, 0)`;
+  if (variant === "slide-left") return `translate3d(${exit ? -slidePx * amount : slidePx * distance}px, 0, 0)`;
+  if (variant === "slide-right") return `translate3d(${exit ? slidePx * amount : -slidePx * distance}px, 0, 0)`;
   if (variant === "wipe-up") return `translate3d(0, ${sign * 16 * distance}px, 0)`;
   if (variant === "wipe-left") return `translate3d(${sign * 16 * distance}px, 0, 0)`;
 
@@ -43,11 +50,11 @@ function motionClipPath(variant: LaunchTransitionName, amount: number, exit = fa
 export function SceneTransition({
   children,
   durationInFrames,
-  entrance = "scale-down",
-  exit = "scale-in",
-  enterFrames = 14,
-  exitFrames = 12,
-  blur = 6,
+  entrance = "scale-in",
+  exit = "slide-up",
+  enterFrames = LAUNCH_TIMING.transition.enterFrames,
+  exitFrames = LAUNCH_TIMING.transition.exitFrames,
+  blur = LAUNCH_TIMING.transition.blurPx,
   style,
 }: {
   children: ReactNode;
@@ -97,9 +104,9 @@ export function SceneLifecycle({
   background,
   children,
   durationInFrames,
-  foregroundStart = 8,
-  foregroundEnterFrames = 16,
-  foregroundExitFrames = 14,
+  foregroundStart = LAUNCH_TIMING.lifecycle.foregroundStartFrame,
+  foregroundEnterFrames = LAUNCH_TIMING.lifecycle.foregroundEnterFrames,
+  foregroundExitFrames = LAUNCH_TIMING.lifecycle.foregroundExitFrames,
   foregroundStyle,
 }: {
   background?: ReactNode;

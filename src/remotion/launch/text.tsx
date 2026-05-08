@@ -1,16 +1,17 @@
 import type { CSSProperties } from "react";
 import { Easing, useCurrentFrame } from "remotion";
 import { fitText, gpuTransform, measureText, progress, timeline } from "./helpers";
+import { LAUNCH_TIMING } from "./timing";
 
 type TextWeight = string | number;
 
 export function WordReveal({
   text,
   start = 0,
-  stagger = 4,
-  duration = 18,
-  y = 28,
-  blur = 8,
+  stagger = LAUNCH_TIMING.reveal.wordStaggerFrames,
+  duration = LAUNCH_TIMING.reveal.expressiveFrames,
+  y = 40,
+  blur = 0,
   style,
   wordStyle,
 }: {
@@ -59,9 +60,9 @@ export function WordReveal({
 export function LineReveal({
   children,
   start = 0,
-  duration = 18,
-  y = 42,
-  blur = 8,
+  duration = LAUNCH_TIMING.reveal.standardFrames,
+  y = 40,
+  blur = LAUNCH_TIMING.transition.blurPx,
   style,
 }: {
   children: string;
