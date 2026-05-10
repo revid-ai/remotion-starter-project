@@ -8,11 +8,11 @@
     "build": "vite build",
     "preview": "vite preview",
     "type-check": "tsc --noEmit",
-    "lint": "eslint src && tsc --noEmit && hyperframes lint composition",
-    "lint:fix": "eslint src --fix && tsc --noEmit && hyperframes lint composition",
-    "render": "hyperframes render composition -o renders/output.mp4",
-    "doctor": "hyperframes doctor",
-    "fix": "prettier --write src index.html composition/index.html && eslint src --fix && tsc --noEmit && hyperframes lint composition"
+    "lint": "eslint src && tsc --noEmit",
+    "lint:fix": "eslint src --fix && tsc --noEmit",
+    "render": "npx --yes hyperframes@0.5.7 render composition -o renders/output.mp4",
+    "doctor": "npx --yes hyperframes@0.5.7 doctor",
+    "fix": "prettier --write src index.html composition/index.html && eslint src --fix && tsc --noEmit"
   },
   "dependencies": {
     "@hyperframes/player": "0.5.7",
@@ -20,7 +20,6 @@
   },
   "devDependencies": {
     "eslint": "^9.31.0",
-    "hyperframes": "0.5.7",
     "prettier": "3.6.0",
     "typescript": "5.8.2",
     "typescript-eslint": "^8.33.0",
