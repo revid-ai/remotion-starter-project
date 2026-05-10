@@ -1,5 +1,5 @@
 {
-  "name": "remotion-template",
+  "name": "hyperframes-template",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -8,22 +8,19 @@
     "build": "vite build",
     "preview": "vite preview",
     "type-check": "tsc --noEmit",
-    "lint": "eslint src && tsc --noEmit",
-    "lint:fix": "eslint src --fix && tsc --noEmit",
-    "fix": "prettier --write src && eslint src --fix && tsc --noEmit"
+    "lint": "eslint src && tsc --noEmit && hyperframes lint composition",
+    "lint:fix": "eslint src --fix && tsc --noEmit && hyperframes lint composition",
+    "render": "hyperframes render composition -o renders/output.mp4",
+    "doctor": "hyperframes doctor",
+    "fix": "prettier --write src index.html composition/index.html && eslint src --fix && tsc --noEmit && hyperframes lint composition"
   },
   "dependencies": {
-    "@remotion/google-fonts": "^4.0.414",
-    "@remotion/player": "^4.0.414",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "remotion": "^4.0.414"
+    "@hyperframes/player": "0.5.7",
+    "gsap": "3.15.0"
   },
   "devDependencies": {
-    "@types/react": "^19.2.9",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.31.0",
+    "hyperframes": "0.5.7",
     "prettier": "3.6.0",
     "typescript": "5.8.2",
     "typescript-eslint": "^8.33.0",
